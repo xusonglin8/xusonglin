@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+  
+
+<!-- 配置Service 让spring为Service创建对象 并且在Service层需要调用Dao层来获取数据
+所以还要加一个映射，将dao层对象导入service-->
+<bean id="Person" class="com.cn.tai.pojo.Person">
+	<property name="name" value="huaxing"></property>
+	<constructor-arg name="name" value="zhangsan"></constructor-arg>
+	<constructor-arg name="age" value="18"></constructor-arg>
+</bean>
+
+<bean id="ExampleBean" class="com.cn.tai.pojo.ExampleBean">
+<constructor-arg name="years" value="18"/>
+<constructor-arg name="ultimateAnswer" value="42"/>
+<constructor-arg index="0" value="2018"/>
+<constructor-arg index="1" value="42"/>
+</bean>
+
+<bean id="AnotherExampleBean" class="com.cn.tai.pojo.AnotherExampleBean">
+<constructor-arg><ref bean="AnotherBean"/></constructor-arg>
+<constructor-arg ref="yetAnotherBean"/>
+<constructor-arg type="int" value="1"/>
+</bean>	
+
+<bean id="AnotherBean" class="com.cn.tai.pojo.AnotherBean"/>
+<bean id="yetAnotherBean" class="com.cn.tai.pojo.yetAnotherBean"/>
+
+<bean id="AnotherExampleBean" class="com.cn.tai.pojo.AnotherExampleBean" factory-method="createInstance">
+<constructor-arg ref="AnotherBean"/>
+<constructor-arg ref="yetAnotherBean"/>
+<constructor-arg value="1"/>
+</bean>
+<bean id="AnotherBean" class="com.cn.tai.pojo.AnotherBean"/>
+<bean id="yetAnotherBean" class="com.cn.tai.pojo.yetAnotherBean"/>
+
+</beans>
